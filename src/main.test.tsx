@@ -78,11 +78,21 @@ function findRenderedComponent(
   if (!React.isValidElement(node)) return null;
   if (node.type === type) return node;
 
-  const children = (node.props as { children?: React.ReactNode }).children;
-  for (const child of React.Children.toArray(children)) {
+  const props = node.props as {
+    children?: React.ReactNode;
+    element?: React.ReactNode;
+  };
+
+  for (const child of React.Children.toArray(props.children)) {
     const found = findRenderedComponent(child, type);
     if (found) return found;
   }
+
+  if (props.element) {
+    const found = findRenderedComponent(props.element, type);
+    if (found) return found;
+  }
+
   return null;
 }
 

@@ -151,6 +151,8 @@ const developerSteps: Step[] = [
   },
 ];
 
+const DETAILS_BASE = "/details/";
+
 const APP_ROUTES = {
   landing: "/",
   dashboard: "/dashboard",
@@ -170,12 +172,13 @@ const APP_ROUTES = {
   slaCard: "/marketplace/grantfox-wave-compute/sla",
   webhookDeliveries: "/webhooks/deliveries",
   onboarding: "/onboarding",
-  details: "/details/:id",
-  detailsBase: "/details/",
+  detailsBase: DETAILS_BASE,
+  details: `${DETAILS_BASE}:id`,
   latencyChart: "/latency-chart",
   endpointSummary: "/endpoint-summary",
   endpointSummary: "/endpoints",
 } as const;
+
 
 function buildExplorerLink(hash: string) {
   return `${EXPLORER_BASE_URL}${hash}`;

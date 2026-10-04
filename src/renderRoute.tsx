@@ -10,7 +10,7 @@
  * render). `main.tsx` stays the only entry point that touches the DOM on load.
  */
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
 import { AccountProvider } from "./hooks/useAccountContext";
 import RouteProgressBar from "./components/RouteProgressBar";
@@ -82,12 +82,19 @@ export async function renderRoute(
     const ApiDetailPage = mod.default;
     root.render(
       wrap(
-        <ApiDetailPage
-          onBack={() => {
-            history.pushState({}, "", "/marketplace");
-            void renderRoute(root, "/marketplace");
-          }}
-        />
+        <Routes>
+          <Route
+            path="/details/:id"
+            element={
+              <ApiDetailPage
+                onBack={() => {
+                  history.pushState({}, "", "/marketplace");
+                  void renderRoute(root, "/marketplace");
+                }}
+              />
+            }
+          />
+        </Routes>
       )
     );
     stopRouteLoading();
